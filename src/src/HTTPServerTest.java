@@ -1,9 +1,6 @@
 package src;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -11,21 +8,22 @@ public class HTTPServerTest {
 
 	public static void main(String[] args) {
 		if (args.length < 2) {
+			System.out.println("Missing one or more arguments, try again. "
+					+ "Usage: java src.HTTPServerTest (port number) (directory where file is located)");
 			return;
 		}
 		
 		int port = Integer.parseInt(args[0]); // For the port argument
 		String directory = args[1]; // for the directory argument
-		//File document = new File(directory); 
 
 		try (ServerSocket serverSocket = new ServerSocket(port)){
+			System.out.println("Server started with Port: " + port);
 			
 			while (true) {
 				Socket socketClient = serverSocket.accept();
-				InputStream clientInput = socketClient.getInputStream();
-				OutputStream clientOutput = socketClient.getOutputStream();
+				System.out.println("Client Connected.");
 				
-				Thread serverThread = new HTTPClientTest(socketClient, clientInput, clientOutput);
+				Thread serverThread = new Thread(new HTTPClient(socketClient, directory)); // makes a new thread for every new client connected
 				serverThread.start();
 			}
 			
@@ -36,10 +34,4 @@ public class HTTPServerTest {
 		}
 
 	}
-
 }
-
-// Steps / Requirements (Server)
-// Must create SocketServer.
-// Must let multiple clients connect to server using port. (using threads?)
-// 
