@@ -47,6 +47,7 @@ A message should pop up saying: "Server Port: <<CHOICE OF PORT NUMBER>>"
 4. Open a browser of your choice.
 5. Go to the link: "http://localhost:<<PORT NUMBER>>/<<FILE NAME>>" to load the given file. In our case, the file would be index.html
 6. You should now see the index.html webpage, complete with css, and an image of a cat.:
+Note that only the following MIME types are supported: HTML, CSS, JPEG, PNG, GIF, WEBP
 
 ## My experience with this project
 
